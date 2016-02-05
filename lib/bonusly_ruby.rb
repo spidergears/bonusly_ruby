@@ -27,16 +27,42 @@ module BonuslyRuby
       class << self
         attr_accessor :config
 
-        def company_info
+        #Company Api
+        def company_info 
           self.get(request_url("companies/show")).to_bonusly_repsonse
         end
 
-        def users
-          self.get(request_url("users")).to_bonusly_repsonse
+        #Users Api
+        def users **params
+          self.get(request_url("users"), query: params).to_bonusly_repsonse
         end
 
-        def recent_bonuses
-          self.get(request_url("bonuses")).to_bonusly_repsonse
+        def me
+          self.get(request_url("users/me")).to_bonusly_repsonse
+        end
+
+        def user id:
+          self.get(request_url("users/#{id}")).to_bonusly_repsonse
+        end
+
+        def neighborhood id:, days: 30, **params
+          self.get(request_url("/users/#{id}/neighborhood"), query: params).to_bonusly_repsonse
+        end
+
+        def redemptions id:, **params
+          self.get(request_url("users/#{id}/redemptions"), query: params).to_bonusly_repsonse
+        end
+
+        def bonuses id: nil, **params
+          self.get(request_url("users/#{id}/bonuses"), query: params).to_bonusly_repsonse
+        end
+
+        def autocomplete params={search: ""}
+          self.get(request_url("users/autocomplete"), query: params).to_bonusly_repsonse
+        end
+
+        def analytics **params
+          self.get(request_url("analytics/standouts"), query: params).to_bonusly_repsonse
         end
 
         private
