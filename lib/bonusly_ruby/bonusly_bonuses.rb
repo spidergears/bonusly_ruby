@@ -2,7 +2,7 @@ module Bonusly
   class Bonuses < Bonusly::HTTP
     class << self
       def index(**params)
-        get("/bonuses", query: params).to_bonusly_repsonse
+        get('/bonuses', query: params).to_bonusly_repsonse
       end
 
       def show(id:)
