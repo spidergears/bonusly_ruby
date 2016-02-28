@@ -32,6 +32,10 @@ module Bonusly
       def analytics **params
         self.get("/analytics/standouts", query: params).to_bonusly_repsonse
       end
+
+      def token
+        access_token: ::Bonusly::Config.config_block.call()
+      end
     end
   end
 end
